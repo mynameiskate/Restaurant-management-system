@@ -1,0 +1,31 @@
+{
+  "name": "rms",
+  "version": "1.0.0",
+  "description": "super cool restaurant management system",
+  "main": "server.js",
+  "scripts": {
+    "test": "test",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mynameiskate/Restaurant-management-system.git"
+  },
+  "keywords": [
+    "restaurants",
+    "automation",
+    "system"
+  ],
+  "author": "Kate & Natasha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mynameiskate/Restaurant-management-system/issues"
+  },
+  "homepage": "https://github.com/mynameiskate/Restaurant-management-system#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "observable": "^2.1.4",
+    "rxjs-observable": "0.0.7"
+  }
+}
