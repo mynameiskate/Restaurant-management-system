@@ -5,14 +5,11 @@ const pool = new DbPool(connectionString);
 
 const getDishes = (req, res) => {
   try {
-    pool.executeQuery('SELECT * FROM Dish', (result) => {
+    pool.executeQuery(`SELECT Name, ImageId, Cost, Weight, Description FROM Dish
+      LEFT OUTER JOIN DishImage on Dish.DishId = DishImage.DishId`, (result) => {
+
       res.send((result && result.recordset) 
-        ? result.recordset.map((record) => new DishModel(
-            record.Name,
-            record.Cost,
-            record.Weight,
-            record.Description)
-          )
+        ? result.recordset.map((record) => new DishModel(record))
         : [])
     });
   } catch (error) {

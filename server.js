@@ -25,3 +25,4 @@ res.send([{
 
 //setting up routes
 app.get('/api/dishes', routes.dishes.getDishes);
+app.get('/api/images/:id', routes.images.getImage);
