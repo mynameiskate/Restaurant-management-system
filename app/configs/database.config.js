@@ -3,7 +3,7 @@ const databaseConfig = {
   database: 'rsmdb',
   driver: 'msnodesqlv8',
   options: {
-      trustedConnection: true
+    trustedConnection: true
   }
 }
 

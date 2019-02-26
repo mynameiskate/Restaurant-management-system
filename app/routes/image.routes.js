@@ -19,8 +19,8 @@ const getImage = (req, res) => {
         }
     });
   } catch (error) {
-      res.status(500);
-      res.send('Something went totally wrong :(');
+    res.status(500);
+    res.send('Something went totally wrong :(');
   }
 }
 
