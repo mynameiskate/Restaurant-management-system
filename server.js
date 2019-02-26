@@ -1,16 +1,11 @@
 const express = require('express');
-const cors = require('cors')
-
+const cors = require('cors');
+const corsConfig = require('./app/configs/cors.config');
 const app = express();
 
-const corsOptions = {
-origin: 'http://localhost:4200',
-optionsSuccessStatus: 200
-}
-app.use(cors(corsOptions));
-
+app.use(cors(corsConfig));
 app.listen(8000, () => {
-console.log('starting server...');
+  console.log('starting server...');
 });
 
 //mock data just in case db connection does not work
@@ -28,7 +23,6 @@ res.send([{
 });*/
 
 app.get('/api/dishes', (req, res) => {
-
   //TODO: refactor and move to separate class
   const sql = require('mssql/msnodesqlv8');
   const connectionString = require('./app/configs/database.config');
@@ -39,10 +33,11 @@ app.get('/api/dishes', (req, res) => {
     pool.request().query('SELECT * FROM Dish', (err, result) => {
         res.send((result && result.recordset) 
           ? result.recordset.map((record) => new DishModel(
-            record.Name,
-            record.Cost,
-            record.Weight,
-            record.Description)
+              record.Name,
+              record.Cost,
+              record.Weight,
+              record.Description
+            )
           )
           : []);
       })
