@@ -5,5 +5,5 @@ export interface Dish {
   weight: number;
   nutritionalValue: number;
   isAvaliable: boolean;
-  image: string;
+  imageId: string;
 }

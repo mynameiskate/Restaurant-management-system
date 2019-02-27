@@ -8,10 +8,12 @@
       <div>
         <div class="cost">{{ dish.cost }} $</div>
         <div class="weight">{{ dish.weight }} ml</div>
-        <div class="nutritionalValue">{{ dish.nutritionalValue }} calories</div>
+        <div *ngIf="dish.nutritionalValue" class="nutritionalValue">
+          {{ dish.nutritionalValue }} calories
+        </div>
       </div>
       <img alt="dish" src="./assets/images/dishes/no-picture.jpg">
     </div>
-    <p class="sescription">{{ dish.description }}</p>
+    <p class="description">{{ dish.description }}</p>
   </div>
 </div>
