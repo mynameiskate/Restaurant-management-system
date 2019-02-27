@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const corsConfig = require('./app/configs/cors.config');
+const routes = require('./app/routes/routes');
 const app = express();
 
 app.use(cors(corsConfig));
@@ -8,7 +9,13 @@ app.listen(8000, () => {
   console.log('starting server...');
 });
 
+//setting up routes
+app.get('/api/dishes', routes.dishes.getDishes);
+app.get('/api/images/:id', routes.images.getImage);
+
+
 //mock data just in case db connection does not work
+/*
 app.route('/api/dishes').get((req, res) => {
   res.send([{
     name: 'mushroom soup',
@@ -39,28 +46,4 @@ app.route('/api/dishes').get((req, res) => {
   }]
 );
 });
-
-// app.get('/api/dishes', (req, res) => {
-//   //TODO: refactor and move to separate class
-//   const sql = require('mssql/msnodesqlv8');
-//   const connectionString = require('./app/configs/database.config');
-//   const pool = new sql.ConnectionPool(connectionString);
-//   const DishModel = require('./app/models/dish.model');
-
-//   pool.connect().then((err) => {
-//     pool.request().query('SELECT * FROM Dish', (err, result) => {
-//         res.send((result && result.recordset) 
-//           ? result.recordset.map((record) => new DishModel(
-//               record.Name,
-//               record.Cost,
-//               record.Weight,
-//               record.Description
-//             )
-//           )
-//           : []);
-//       })
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//   });
-// });
+*/
