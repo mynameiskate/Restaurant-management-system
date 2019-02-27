@@ -1,9 +1,17 @@
-<div style="text-align:center">
+<h1>
   Welcome to Restaurant Management System
-</div>
+</h1>
 <div class="dish-list">
   <div class="dish" *ngFor="let dish of dishes">
-    {{ dish.name }}
+    <h3>{{ dish.name }}</h3>
+    <div class="dish-info">
+      <div>
+        <div class="cost">{{ dish.cost }} $</div>
+        <div class="weight">{{ dish.weight }} ml</div>
+        <div class="nutritionalValue">{{ dish.nutritionalValue }} calories</div>
+      </div>
+      <img alt="dish" src="./assets/images/dishes/no-picture.jpg">
+    </div>
+    <p class="sescription">{{ dish.description }}</p>
   </div>
 </div>
-
