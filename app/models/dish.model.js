@@ -5,6 +5,7 @@ class Dish {
     this.weight = dishEntity.Weight;
     this.description = dishEntity.Description;
     this.imageId = dishEntity.ImageId;
+    this.nutritionalValue = dishEntity.NutritionalValue;
   }
 }
 

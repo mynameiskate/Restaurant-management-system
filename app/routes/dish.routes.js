@@ -5,7 +5,7 @@ const pool = new DbPool(connectionString);
 
 const getDishes = (req, res) => {
   try {
-    pool.executeQuery(`SELECT Name, ImageId, Cost, Weight, Description FROM Dish
+    pool.executeQuery(`SELECT * FROM Dish
       LEFT OUTER JOIN DishImage on Dish.DishId = DishImage.DishId`, (result) => {
 
       res.send((result && result.recordset) 

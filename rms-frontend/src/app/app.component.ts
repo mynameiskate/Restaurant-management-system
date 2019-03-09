@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 
 import { Dish } from './models/dish.model';
 import { DishService } from './services/dish.service';
+import { appConfig } from './configs/app.config';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,10 @@ export class AppComponent implements OnInit {
   dishes: Dish[] = [];
 
   constructor(private dishService: DishService) {
+  }
+
+  getImageUrl(imageId) {
+    return appConfig.imageUrl + imageId;
   }
 
   ngOnInit() {

@@ -12,7 +12,7 @@
           {{ dish.nutritionalValue }} calories
         </div>
       </div>
-      <img alt="dish" src="./assets/images/dishes/no-picture.jpg">
+      <img alt="dish" src="{{ getImageUrl(dish.imageId) }}">
     </div>
     <p class="description">{{ dish.description }}</p>
   </div>
