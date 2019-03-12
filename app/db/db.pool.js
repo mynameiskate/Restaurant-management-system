@@ -10,11 +10,14 @@ class DbPool {
       });
   }
 
-  executeQuery(query, callback) {
+  executeQuery(query, callback, errorCallback) {
     this.poolPromise.then((pool) => {
         pool.request().query(query, (err, result) => {
           if (err) {
-            throw err;
+            console.log(err);
+            if (errorCallback) {
+              errorCallback(err);
+            }
           } else if (callback) {
             callback(result);
           }

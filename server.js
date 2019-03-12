@@ -2,19 +2,42 @@ const express = require('express');
 const cors = require('cors');
 const corsConfig = require('./app/configs/cors.config');
 const routes = require('./app/routes/routes');
+const bodyParser = require('body-parser');
 const app = express();
 
 app.use(cors(corsConfig));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.listen(8000, () => {
   console.log('starting server...');
 });
 
-//setting up routes
+// setting up routes
 app.get('/api/dishes', routes.dishes.getDishes);
+app.post('/api/dishes', routes.dishes.createDish);
+app.put('/api/dishes/:id', routes.dishes.updateDish);
+app.delete('/api/dishes/:id', routes.dishes.deleteDish);
+
 app.get('/api/images/:id', routes.images.getImage);
 
+// global error handler
+app.use((err, req, res, next) => {
+  if (!err) return next();
 
-//mock data just in case db connection does not work
+  // set locals
+  res.locals.message = err.message;
+
+  res.status(err.status || 500);
+  res.send('Something went completely wrong :(');
+});
+
+// catch 404
+app.use((req, res, next) => {
+  res.status(404);
+  res.send('Not Found');
+});
+
+// mock data just in case db connection does not work
 /*
 app.route('/api/dishes').get((req, res) => {
   res.send([{
