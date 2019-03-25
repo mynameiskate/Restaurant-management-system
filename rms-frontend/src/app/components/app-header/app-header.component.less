@@ -1,0 +1,109 @@
+// Mode: Tablet
+@tablet: ~"(max-width: 768px)";
+// @tablet-area: 750px;
+
+// Mode: Phone
+@phone: ~"(max-width: 576px)";
+// @phone-area: 570px;
+
+@imagesUrl: '../../../assets/images/';
+
+section {
+    margin-bottom: 10vh;
+    background: url('@{imagesUrl}bg1.jpg') bottom center;
+    background-size: cover;
+
+    .shadow {
+        height: inherit;
+        background: rgba(0,0,0,.6); 
+
+        .container {
+            max-width: 1200px;
+            height: 100vh;
+
+            .navbar {
+                height: 20%;
+                font-size: 30px;
+                color: white;
+
+                .navbar-brand {
+                    height: 100%;
+
+                    img{
+                        height: 100%;
+                        object-fit: contain;
+
+                        @media @phone {
+                            width: 150px;
+                        }
+                    }
+                }
+
+                .nav-link {
+                    color: rgba(255,255,255,1);
+                }
+
+                .nav-link:hover {
+                    color: rgba(255,255,255,0.8);
+                }
+            }
+
+            .header-info {
+                height: 80%;
+
+                h1 {
+                    width: 60%;
+                    margin: 20px;
+                    font-size: 70px;
+                    color: white;
+                    text-align: center;
+
+                    @media @tablet {
+                        font-size: 60px;
+                    }
+
+                    @media @phone {
+                        font-size: 40px;
+                    }
+                }
+            }
+
+            .pumpkin-icon {
+                background: url('@{imagesUrl}temp-name/pumpkin-icon.png') no-repeat;  
+                left: 0;
+                bottom: -5%;
+                .veg-icons();
+            }
+
+            .carrot-icon {
+                background: url('@{imagesUrl}temp-name/carrot-icon.png') no-repeat;
+                right: 3%;
+                top: 25%;
+                .veg-icons();
+            }
+            
+        }
+    }
+}
+
+.veg-icons {
+    display: inline-block;
+    position: absolute;
+    background-size: contain;
+    height: 250px;
+    width: 250px;
+
+    @media @tablet {
+        height: 200px;
+        width: 200px;
+    }
+
+    @media @phone {
+        height: 150px;
+        width: 150px;
+    }
+}
+
+.hide {
+    display: none!important;
+}
