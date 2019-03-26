@@ -1,6 +1,5 @@
 const databaseConfig = {
-  server: 'KATES-DESKTOP', 
-  // server: 'DESKTOP-380P92N\\SQLEXPRESS', 
+  server: 'WONDERBOOK', 
   database: 'rsmdb',
   driver: 'msnodesqlv8',
   options: {
