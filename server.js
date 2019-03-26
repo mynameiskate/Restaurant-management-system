@@ -13,12 +13,17 @@ app.listen(8000, () => {
 });
 
 // setting up routes
+// dishes
 app.get('/api/dishes', routes.dishes.getDishes);
 app.post('/api/dishes', routes.dishes.createDish);
 app.put('/api/dishes/:id', routes.dishes.updateDish);
 app.delete('/api/dishes/:id', routes.dishes.deleteDish);
 
+// images
 app.get('/api/images/:id', routes.images.getImage);
+
+// users
+app.get('/api/employees', routes.users.getEmployees);
 
 // global error handler
 app.use((err, req, res, next) => {
