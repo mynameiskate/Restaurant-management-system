@@ -32,6 +32,6 @@ export class AppComponent implements OnInit {
       .subscribe(res => this.dishes = res);
     
     this.userService.getEmployees()
-      .subscribe(res => {this.employees = res; console.log(res)});
+      .subscribe(res => this.employees = res);
   }
 }
