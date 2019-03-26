@@ -6,6 +6,7 @@ class Dish {
     this.description = dishEntity.Description;
     this.imageId = dishEntity.ImageId;
     this.nutritionalValue = dishEntity.NutritionalValue;
+    this.category = dishEntity.Category;
   }
 }
 
