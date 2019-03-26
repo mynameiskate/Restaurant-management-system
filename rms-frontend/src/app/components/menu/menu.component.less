@@ -1,0 +1,49 @@
+@color-font-dark: rgb(76,67,61);
+@color-font-light: rgb(241,238,219);
+@url: '../../../assets/images/';
+
+p {
+  font-size: 18px;
+}
+
+.dish-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: stretch;
+  color: @color-font-dark;
+
+  .dish {
+    margin: 15px;
+    padding: 15px;
+    background-image: url('@{url}texture-light.jpg');
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h3 {
+      font-size: 40px;
+    }
+
+    .dish-info {
+      margin: 10px 0;
+      display: flex;
+      justify-content: space-around;
+      font-size: 20px;
+
+      div {
+        margin: 0 10px;
+      }
+
+      img {
+        height: 240px;
+        width: 240px;
+        object-fit: cover;
+      }
+    }
+  }
+}
+
+section {
+  color: white;///////
+}

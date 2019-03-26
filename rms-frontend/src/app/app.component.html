@@ -1,18 +1,1 @@
-<app-header></app-header>
-<div class="dish-list">
-  <div class="dish" *ngFor="let dish of dishes">
-    <h3>{{ dish.name }}</h3>
-    <div class="dish-info">
-      <div>
-        <div class="cost">{{ dish.cost }} $</div>
-        <div class="weight">{{ dish.weight }} ml</div>
-        <div *ngIf="dish.nutritionalValue" class="nutritionalValue">
-          {{ dish.nutritionalValue }} calories
-        </div>
-      </div>
-      <img alt="dish" src="{{ getImageUrl(dish.imageId) }}"
-          onerror="this.src='./assets/images/dishes/no-picture.jpg'">
-    </div>
-    <p class="description">{{ dish.description }}</p>
-  </div>
-</div>
+<router-outlet></router-outlet>
