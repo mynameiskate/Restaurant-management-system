@@ -9,8 +9,8 @@ import { Employee } from './models/employee.model';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.less']//,
-  // providers: [DishService]
+  styleUrls: ['./app.component.less'],
+  providers: [UserService]
 })
 export class AppComponent implements OnInit {
   title = 'rms-frontend';
