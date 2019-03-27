@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -9,21 +9,15 @@ import { Component, OnInit } from '@angular/core';
 export class AppHeaderComponent implements OnInit {
   name: String = 'Restaurant';
   imagesUrl: String = '../../assets/images/';
+  menuIsShown: Boolean = false;
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  NavHandler() {
-    let navList = document.querySelector('.navbar-collapse');
-    if (navList.classList.contains('show')) {
-        document.querySelector('.header-info').classList.remove('hide');
-        document.querySelector('.carrot-icon').classList.remove('hide');
-    } else {
-        document.querySelector('.header-info').classList.add('hide');
-        document.querySelector('.carrot-icon').classList.add('hide');
-    }
+  toggleMenuVisibility() {
+    this.menuIsShown = !this.menuIsShown;
   }
 
 }

@@ -5,7 +5,7 @@
         <a class="navbar-brand" href="#">
           <img src="{{imagesUrl}}light-logo.png">
         </a>
-        <button (click)="NavHandler()" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        <button (click)="toggleMenuVisibility($event)" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -18,13 +18,13 @@
           </ul>
         </div>
       </nav>
-      <div class="header-info d-flex justify-content-center align-items-center">
+      <div class="header-info d-flex justify-content-center align-items-center" [ngClass]="{hide: menuIsShown}">
         <h1>
           Welcome to {{name}} Management System
         </h1>
       </div>
       <div class="pumpkin-icon"></div>
-      <div class="carrot-icon"></div>
+      <div class="carrot-icon" [ngClass]="{hide: menuIsShown}"></div>
     </div>
   </div>
 </section>
