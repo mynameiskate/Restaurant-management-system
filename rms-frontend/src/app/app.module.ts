@@ -12,12 +12,14 @@ import { MenuComponent } from './components/menu/menu.component';
 import { OrderComponent } from './components/order/order.component';
 import { AuthenticationComponent } from './components/authentication/authentication.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { EditingComponent } from './components/editing/editing.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'menu', component: MenuComponent},
   {path: 'order', component: OrderComponent},
   {path: 'authentication', component: AuthenticationComponent},
+  {path: 'editing', component: EditingComponent},
   {path: '**', component: NotFoundComponent}
 ]
 
@@ -29,7 +31,8 @@ const appRoutes: Routes = [
     MenuComponent,
     OrderComponent,
     AuthenticationComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    EditingComponent
   ],
   imports: [
     BrowserModule,

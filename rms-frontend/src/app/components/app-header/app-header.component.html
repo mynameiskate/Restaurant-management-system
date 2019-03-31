@@ -5,7 +5,7 @@
         <a class="navbar-brand" href="#">
           <img src="{{imagesUrl}}light-logo.png">
         </a>
-        <button (click)="toggleMenuVisibility($event)" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        <button (click)="toggleMenuVisibility()" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -15,6 +15,7 @@
             <li class="nav-item"><a class="nav-link" routerLink="/menu">Menu</a></li>
             <li class="nav-item"><a class="nav-link" routerLink="/order">Order</a></li>
             <li class="nav-item"><a class="nav-link" routerLink="/authentication">Log In</a></li>
+            <li *ngIf="isAdmin" class="nav-item"><a class="nav-link" routerLink="/editing">Edit</a></li>
           </ul>
         </div>
       </nav>

@@ -1,4 +1,5 @@
 import { Position } from './position.model';
+import { User } from './user.model';
 
 export interface Employee {
   id: number,
@@ -6,5 +7,6 @@ export interface Employee {
   surname: string,
   birthday: Date,
   telephone:  string,
-  position: Position
+  position: Position,
+  user: User
 }

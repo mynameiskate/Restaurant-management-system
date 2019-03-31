@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -10,6 +10,7 @@ export class AppHeaderComponent implements OnInit {
   name: String = 'Restaurant';
   imagesUrl: String = '../../assets/images/';
   menuIsShown: Boolean = false;
+  isAdmin: Boolean = true;
 
   constructor() { }
 

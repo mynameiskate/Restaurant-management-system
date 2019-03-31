@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { Employee } from '../../models/employee.model';
 import { UserService } from '../../services/user.service';
 
@@ -24,6 +25,7 @@ export class AuthenticationComponent implements OnInit {
   }
 
   checkEnteredData() {
+    console.log(this.employees);
     console.log(this.email, this.password);
     this.incorrectEmail = (this.email.length < 5) ? true : false;
     this.incorrectPassword = (this.password.length < 5) ? true : false;
