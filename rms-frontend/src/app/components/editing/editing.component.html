@@ -34,16 +34,16 @@
         <input type="text" name="nutritionalValue" [(ngModel)]="nutritionalValue" required>
       </label>
       <label>
-        <span class="label-text">Is Available</span>
-        <input type="text" name="isAvailable" [(ngModel)]="isAvailable" required>
-      </label>
-      <label>
         <span class="label-text">Dish Category</span>
-        <input type="text" name="dishCategoryId" [(ngModel)]="dishCategoryId" required>
+        <input type="text" name="dishCategory" [(ngModel)]="dishCategory" required>
       </label>
       <label>
         <span class="label-text">DishImage</span>
-        <input type="text" name="dishImage" [(ngModel)]="dishImage" required>
+        <input type="file" name="dishImage" [(ngModel)]="dishImage" accept=".jpg" (change)="fileChange($event)">
+      </label>
+      <label class="checkbox">
+        <input type="checkbox" name="isAvailable" [(ngModel)]="isAvailable" required>
+        <span class="label-text">Is Available</span>
       </label>
 
       <div class="text-center">
