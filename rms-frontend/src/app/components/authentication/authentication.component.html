@@ -1,3 +1,31 @@
-<p>
-  authentication works!
-</p>
+<section class="d-flex justify-content-center align-items-center">
+  <div class="logIn-div col-md-6 col-sm-10">
+    <div class="d-flex justify-content-center">
+      <a routerLink="">
+        <img class="logo" src="{{imagesUrl}}dark-logo.png">
+      </a>
+    </div>
+    <h2 class="text-center">Log In</h2>
+
+    <form class="logIn-form" (submit)="checkEnteredData()">
+
+      <label>
+        <span class="label-text" [ngClass]="{incorrect: incorrectEmail}">Email</span>
+        <input type="text" name="email" [(ngModel)]="email" required>
+      </label>
+
+      <label class="password">
+        <span class="label-text" [ngClass]="{incorrect: incorrectPassword}">Password</span>
+        <input type="password" name="password" [(ngModel)]="password" required>
+      </label>
+
+      <div class="text-center">
+        <button type="submit" name="logIn">Log In</button>
+      </div>
+
+    </form>
+
+    <div class="cabbage"></div>
+    <div class="beans"></div>
+  </div>
+</section>

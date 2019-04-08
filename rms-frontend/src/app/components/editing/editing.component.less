@@ -1,0 +1,98 @@
+// Mode: Tablet
+@tablet: ~"(max-width: 768px)";
+// Mode: Phone
+@phone: ~"(max-width: 576px)";
+
+@imagesUrl: '../../../assets/images/';
+@dark-color: rgb(61,61,61);
+@light-color: rgb(196,168,131);
+@incorrect-color: rgb(148, 36, 38);
+
+section {
+
+    .button-group {
+
+        button {
+            .button-style();
+            border: 1px solid @light-color;
+            color: @light-color;
+        }
+
+        button:hover, button:focus {
+            background: @light-color;
+            color: @dark-color;
+        }
+
+    }
+
+    .create-div {
+        margin: 10px;
+        padding: 2%;
+        background: url('@{imagesUrl}texture-light.jpg');
+        color: @dark-color;
+
+
+        .editing-form {
+
+            label {
+                width: 100%;
+
+                input {
+                    background: none;
+                    border: none;
+                    border-bottom: 2px solid @dark-color;
+                    line-height: 1em;
+                    font-weight: 300;
+                    padding: 0.125em 0.25em;
+                    width: 100%;
+                }
+
+                input:focus {
+                    outline: none;
+                }
+            }
+
+            label.checkbox {
+                font-weight: 700;
+                border-bottom: 0;
+
+                input{
+                    margin-right: 5px;
+                    width: 20px;
+                    height: 20px;
+                }
+
+                span {
+                    position: relative;
+                    bottom: 4px;
+                }
+            }
+
+            button {
+                .button-style();
+                border: 1px solid @dark-color;
+                color: @dark-color;
+            }
+
+            button:hover {
+                background: @dark-color;
+                color: @light-color;
+            }
+            
+        }
+    }
+}
+
+.button-style {
+    width: 150px;
+    background: rgba(255,255,255,0.1);
+    font-size: 25px;
+    line-height: 1em;
+    padding: 0.5em 0.5em;
+    -webkit-transition: all 0.25s;
+    transition: all 0.25s;
+}
+
+button:hover, button:focus {
+    outline: none;
+}

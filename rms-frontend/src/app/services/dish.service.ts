@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 import { Dish } from '../models/dish.model';
-import { appConfig } from '../configs/app.config'
+import { appConfig } from '../configs/app.config';
 
 
 @Injectable()

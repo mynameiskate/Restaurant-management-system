@@ -1,0 +1,58 @@
+<app-header></app-header>
+
+<section class="d-flex justify-content-center align-items-center flex-column">
+
+  <div class="button-group">
+      <button name="create">Create</button>
+      <button name="edit">Edit</button>
+      <button name="delete">Delete</button>
+  </div>
+
+  <div class="create-div col-md-10">
+    <h2 class="text-center">Create New Dish</h2>
+
+    <form class="editing-form" (submit)="checkEnteredData()">
+
+      <label>
+        <span class="label-text">Name</span>
+        <input type="text" name="name" [(ngModel)]="name" required>
+      </label>
+      <label>
+        <span class="label-text">Description</span>
+        <input type="text" name="description" [(ngModel)]="description" required>
+      </label>
+      <label>
+        <span class="label-text">Cost</span>
+        <input type="text" name="cost" [(ngModel)]="cost" required>
+      </label>
+      <label>
+        <span class="label-text">Weight</span>
+        <input type="text" name="weight" [(ngModel)]="weight" required>
+      </label>
+      <label>
+        <span class="label-text">Nutritional Value</span>
+        <input type="text" name="nutritionalValue" [(ngModel)]="nutritionalValue" required>
+      </label>
+      <label>
+        <span class="label-text">Dish Category</span>
+        <input type="text" name="dishCategory" [(ngModel)]="dishCategory" required>
+      </label>
+      <label>
+        <span class="label-text">DishImage</span>
+        <input type="file" name="dishImage" [(ngModel)]="dishImage" accept=".jpg" (change)="fileChange($event)">
+      </label>
+      <label class="checkbox">
+        <input type="checkbox" name="isAvailable" [(ngModel)]="isAvailable" required>
+        <span class="label-text">Is Available</span>
+      </label>
+
+      <div class="text-center">
+        <button type="submit" name="logIn">Create</button>
+      </div>
+
+    </form>
+
+    <!-- <div class="cabbage"></div>
+    <div class="beans"></div> -->
+  </div>
+</section>

@@ -1,0 +1,108 @@
+// Mode: Tablet
+@tablet: ~"(max-width: 768px)";
+// Mode: Phone
+@phone: ~"(max-width: 576px)";
+
+@imagesUrl: '../../../assets/images/';
+@dark-color: rgb(61,61,61);
+@light-color: rgb(196,168,131);
+@incorrect-color: rgb(148, 36, 38);
+
+.text-center{
+	text-align: center;
+}
+
+section {
+    width: 100vw;
+    height: 100vh;
+
+    .logIn-div {
+        margin: 10px;
+        padding: 2%;
+        background: url('@{imagesUrl}texture-light.jpg');
+        color: @dark-color;
+
+        .logo {
+            width: 300px;
+            height: 200px;
+            object-fit: contain;
+        }
+
+        form {
+
+            label {
+                width: 100%;
+
+                input {
+                    background: none;
+                    border: none;
+                    border-bottom: 2px solid @dark-color;
+                    line-height: 1em;
+                    font-weight: 300;
+                    padding: 0.125em 0.25em;
+                    width: 100%;
+                }
+
+                input:focus {
+                    outline: none;
+                }
+            }
+
+            button {
+                width: 100px;
+                background: rgba(255,255,255,0.1);
+                border: 1px solid @dark-color;
+                color: @dark-color;
+                line-height: 1em;
+                padding: 0.5em;
+                -webkit-transition: all 0.25s;
+                transition: all 0.25s;
+            }
+
+            button:hover {
+                background: @dark-color;
+                color: @light-color;
+                outline: none;
+            }
+
+            button:focus {
+                outline: none;
+            }
+            
+        }
+    }
+
+    .cabbage {
+        background: url('@{imagesUrl}icons/cabbage.png') no-repeat;
+        .veg-icons(); 
+        left: 100%;
+        top: 5%;
+        height: 100%;
+        width: 50%;
+
+        @media @tablet {
+            display: none;
+        }
+    }
+
+    .beans {
+        background: url('@{imagesUrl}icons/beans.png') no-repeat;
+        .veg-icons(); 
+        left: 1%;
+        top: 0;
+        height: 40%;
+        width: 20%;
+
+    }
+
+}
+
+.veg-icons {
+    display: inline-block;
+    position: absolute;
+    background-size: contain;
+}
+
+.incorrect {
+    color: @incorrect-color;
+}

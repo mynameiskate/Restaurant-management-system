@@ -13,6 +13,7 @@ import { appConfig } from '../../configs/app.config';
 })
 export class MenuComponent implements OnInit {
   dishes: Dish[] = [];
+  choosedDishes = [];
 
   constructor(private dishService: DishService) { }
 
@@ -22,7 +23,26 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {
     this.dishService.getDishes()
-      .subscribe(res => this.dishes = res);
+      .subscribe(res => {
+        this.dishes = res;
+        //temp
+        for (let dish of this.dishes) {
+          dish.isAvaliable = true;
+        }
+      }); 
   }
 
+  chooseDish(choosedDish) {
+    if (this.choosedDishes.every(element => element.name != choosedDish.name)) {
+      choosedDish.isChoosed = true;
+      this.choosedDishes.push(choosedDish);
+    } else {
+      choosedDish.isChoosed = false;
+      this.choosedDishes = this.choosedDishes.filter(element => element.name != choosedDish.name);
+    }
+  }
+
+  createOrder() {
+    console.log(this.choosedDishes);
+  }
 }

@@ -1,11 +1,7 @@
 <app-header></app-header>
 
-<p>
-  menu works!
-</p>
-
 <div class="dish-list">
-  <div class="dish" *ngFor="let dish of dishes">
+  <div *ngFor="let dish of dishes" [ngClass]="{'opacity': !dish.isAvaliable}" class="dish" (click)="chooseDish(dish)">
     <h3>{{ dish.name }}</h3>
     <div class="dish-info">
       <div>
@@ -19,5 +15,8 @@
           onerror="this.src='./assets/images/dishes/no-picture.jpg'">
     </div>
     <p class="description">{{ dish.description }}</p>
+    <div [ngClass]="{'check-mark': dish.isChoosed}"></div>
   </div>
 </div>
+
+<button *ngIf="choosedDishes.length > 0" class="order-button" (click)="createOrder()">Order</button>

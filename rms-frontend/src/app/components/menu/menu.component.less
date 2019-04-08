@@ -1,9 +1,41 @@
+// Mode: Tablet
+@tablet: ~"(max-width: 768px)";
+// Mode: Phone
+@phone: ~"(max-width: 576px)";
+
+@url: '../../../assets/images/';
+@dark-color: rgb(61,61,61);
+@light-color: rgb(196,168,131);
 @color-font-dark: rgb(76,67,61);
 @color-font-light: rgb(241,238,219);
-@url: '../../../assets/images/';
 
 p {
   font-size: 18px;
+}
+
+.order-button {
+  position: fixed;
+  top: 100px;
+  left: 100px;
+  width: 150px;
+  line-height: 1em;
+  padding: 0.4em;
+  color: @color-font-dark;
+  background: rgba(255,255,255,0.2);
+  border: 2px solid @dark-color;
+  font-size: 25px;
+  -webkit-transition: all 0.25s;
+  transition: all 0.25s;
+}
+
+.order-button:hover {
+  background: @dark-color;
+  color: @light-color;
+  outline: none;
+}
+
+.order-button:focus {
+  outline: none;
 }
 
 .dish-list {
@@ -14,6 +46,7 @@ p {
   color: @color-font-dark;
 
   .dish {
+    position: relative;
     margin: 15px;
     padding: 15px;
     background-image: url('@{url}texture-light.jpg');
@@ -41,9 +74,28 @@ p {
         object-fit: cover;
       }
     }
+
+    .description {
+      max-width: 300px;
+    }
+
+    .check-mark {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 50px;
+      height: 50px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-image: url('@{url}check.png');
+    }
   }
 }
 
 section {
-  color: white;///////
+  color: white;
+}
+
+.opacity {
+  opacity: .5;
 }

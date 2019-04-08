@@ -1,4 +1,5 @@
 const Position = require('./position.model');
+const User = require('./user.model');
 
 class Employee {
   constructor(employeeEntity) {
@@ -10,6 +11,11 @@ class Employee {
     this.position = new Position(
       employeeEntity.PositionId,
       employeeEntity.Position
+    );
+    this.user = new User(
+      employeeEntity.UserId,
+      employeeEntity.Email,
+      employeeEntity.Password
     )
   }
 }
