@@ -72,9 +72,27 @@ const deleteDish = (req, res, next) => {
   }, next);
 }
 
+const assignCookToDish = (req, res, next) => {
+  const {
+    cookId,
+    dishId,
+    orderId
+  } = req.body;
+
+  pool.executeQuery(`exec assignCookToDish
+    @employeeId=${cookId},
+    @dishId=${dishId}
+    @orderId=${orderId};`,
+  (result) => {
+    res.status(200);
+    res.send(result);
+  }, next);
+}
+
 module.exports = {
   getDishes,
   createDish,
   updateDish,
-  deleteDish
+  deleteDish,
+  assignCookToDish
 }

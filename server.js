@@ -41,37 +41,3 @@ app.use((req, res, next) => {
   res.status(404);
   res.send('Not Found');
 });
-
-// mock data just in case db connection does not work
-/*
-app.route('/api/dishes').get((req, res) => {
-  res.send([{
-    name: 'mushroom soup',
-    description: 'Award winning mouth-watering soup.',
-    cost: 10,
-    weight: 300,
-    nutritionalValue: 272,
-    isAvaliable: true,
-    image: './rms-frontend/src/asset/images/dishes/mushroom-soup.jpg'
-  },
-  {
-    name: 'chicken soup',
-    description: 'The best chicken soup in town.',
-    cost: 10,
-    weight: 300,
-    nutritionalValue: 320,
-    isAvaliable: true,
-    image: './rms-frontend/src/asset/images/dishes/chicken-soup.jpg'
-  },
-  {
-    name: 'tomato soup',
-    description: 'The best chicken soup in town.',
-    cost: 10,
-    weight: 300,
-    nutritionalValue: 400,
-    isAvaliable: false,
-    image: './rms-frontend/src/asset/images/dishes/tomato-soup.jpg'
-  }]
-);
-});
-*/
