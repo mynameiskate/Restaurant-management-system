@@ -12,54 +12,80 @@ const getOrders = (req, res, next) => {
     }, next);
 }
 
+const getOrder = (req, res, next) => {
+  const orderId = req.params.id;
+  pool.executeQuery(`exec getOrder
+    @orderId=${orderId}`, (result) => {
+      if (result && result.recordset && result.recordset[0]) {
+        pool.executeQuery(`exec getOrderDishes
+          @orderId=${orderId}`, (dishes) => {
+            res.status(200);
+            res.send(new OrderModel(result.recordset[0], dishes.recordset));
+          }
+        )
+      } else {
+        res.status(404);
+        res.send('Not Found');
+      }
+    }, next);
+}
+
 const createOrder = (req, res, next) => {
   const { 
     tableNum,
     created,
-    guestName
+    guestName,
+    dishes
   } = req.body;
 
   pool.executeQuery(`exec createOrder 
     @table=${tableNum},
     @created=${created},
     @guestName='${guestName}';`,
-    (result) => {
-      res.send(result);
+  (orderId) => {
+      updateOrderDishes(orderId, dishes);
+      res.status(200);
+      res.send(orderId);
     }, next);
 }
 
-const addDishToOrder = (req, res, next) => {
+const updateOrder = (req, res, next) => {
+  const orderId = req.params.id;
   const {
-    dishId,
-    orderId
+    tableNum,
+    guestName,
+    waiterId,
+    statusId,
+    dishes
   } = req.body;
 
-  pool.executeQuery(`exec addDishToOrder
-    @dishId=${dishId},
-    @orderId=${orderId};`,
-  (result) => {
-    res.status(200);
-    res.send(result);
+  pool.executeQuery(`exec updateOrder
+    @orderId=${orderId},
+    @table=${tableNum},
+    @guestName='${guestName}',
+    @waiterId=${waiterId},
+    @statusId=${statusId};`,
+  () => {
+      updateOrderDishes(orderId, dishes);
+      res.status(200);
+      res.send();
   }, next);
 }
 
-const assignWaiterToOrder = (req, res, next) => {
-  const {
-    waiterId,
-    orderId
-  } = req.body;
+const updateOrderDishes = (orderId, dishes) => {
+  if (!dishes || !orderId) return;
 
-  pool.executeQuery(`exec assignWaiterToOrder
-    @waiterId=${waiterId},
-    @orderId=${orderId};`,
-  (result) => {
-    res.status(200);
-    res.send(result);
-  }, next);
+  dishes.forEach(dish => {
+    pool.executeQuery(`exec addDishToOrder
+      @orderId=${orderId},
+      @dishId=${dish.id},
+      @count=${dish.count};`);
+  });
 }
 
 module.exports = {
   getOrders,
-  createOrder,
-  assignWaiterToOrder
+  getOrder,
+  updateOrder,
+  createOrder
 }

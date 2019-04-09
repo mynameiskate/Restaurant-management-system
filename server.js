@@ -25,6 +25,12 @@ app.get('/api/images/:id', routes.images.getImage);
 // users
 app.get('/api/employees', routes.users.getEmployees);
 
+// orders
+app.get('/api/orders/:id', routes.orders.getOrder);
+app.get('/api/orders', routes.orders.getOrders);
+app.post('/api/orders', routes.orders.createOrder);
+app.put('/api/orders/:id', routes.orders.updateOrder);
+
 // global error handler
 app.use((err, req, res, next) => {
   if (!err) return next();
