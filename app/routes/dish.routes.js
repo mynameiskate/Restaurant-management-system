@@ -4,7 +4,7 @@ const connectionString = require('../configs/database.config');
 const pool = new DbPool(connectionString);
 
 const getDishes = (req, res, next) => {
-  pool.executeQuery('exec getAvailableDishes', (result) => {
+  pool.executeQuery('exec getAllDishes', (result) => {
     res.send((result && result.recordset) 
       ? result.recordset.map((record) => new DishModel(record))
       : [])
