@@ -13,6 +13,7 @@ import { OrderComponent } from './components/order/order.component';
 import { AuthenticationComponent } from './components/authentication/authentication.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { EditingComponent } from './components/editing/editing.component';
+import { RouteHelper } from './helpers/route.helper';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -41,7 +42,9 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FormsModule
   ],
-  providers: [],
+  providers: [
+    RouteHelper
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
