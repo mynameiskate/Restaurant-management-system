@@ -25,20 +25,23 @@ export class MenuComponent implements OnInit {
     this.dishService.getDishes()
       .subscribe(res => {
         this.dishes = res;
+        console.log(this.dishes);
         //temp
-        for (let dish of this.dishes) {
-          dish.isAvaliable = true;
-        }
+        // for (let dish of this.dishes) {
+        //   dish.isAvailable = true;
+        // }
       }); 
   }
 
   chooseDish(choosedDish) {
-    if (this.choosedDishes.every(element => element.name != choosedDish.name)) {
-      choosedDish.isChoosed = true;
-      this.choosedDishes.push(choosedDish);
-    } else {
-      choosedDish.isChoosed = false;
-      this.choosedDishes = this.choosedDishes.filter(element => element.name != choosedDish.name);
+    if (choosedDish.isAvailable) {
+      if (this.choosedDishes.every(element => element.name != choosedDish.name)) {
+        choosedDish.isChoosed = true;
+        this.choosedDishes.push(choosedDish);
+      } else {
+        choosedDish.isChoosed = false;
+        this.choosedDishes = this.choosedDishes.filter(element => element.name != choosedDish.name);
+      }
     }
   }
 
