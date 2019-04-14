@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Dish } from '../../models/dish.model';
 import { DishService } from '../../services/dish.service';
 import { appConfig } from '../../configs/app.config';
+import { RouteHelper } from 'src/app/helpers/route.helper';
 
 @Component({
   selector: 'app-menu',
@@ -15,10 +16,11 @@ export class MenuComponent implements OnInit {
   dishes: Dish[] = [];
   choosedDishes = [];
 
-  constructor(private dishService: DishService) { }
+  constructor(private dishService: DishService,
+    private routeHelper: RouteHelper) { }
 
   getImageUrl(imageId) {
-    return appConfig.imageUrl + imageId;
+    return `${this.routeHelper.imageRoute}/${imageId}`;
   }
 
   ngOnInit() {

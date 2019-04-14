@@ -1,0 +1,157 @@
+@dropdown-background-color: rgba(255, 255, 255, 0.1);
+@dropdown-hover-color: #D0D0D0;
+@dropdown-width: 450px;
+
+h2 {
+  color: @dropdown-hover-color;
+}
+
+.focused {
+  outline: none;
+}
+
+.hovered {
+  background: rgb(61, 61, 61, 0.5);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+
+:host /deep/
+.editable {
+  height: 100%;
+  font-size: 18pt;
+}
+
+.search-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: @dropdown-background-color;
+
+  .autocomplete-editable {
+    overflow: hidden;
+    height: 100%;
+    width: 70%;
+    display: inline-block;
+  }
+
+  &:hover {
+    .hovered();
+  }
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  width: @dropdown-width;
+
+  .editable {
+    width: 100%;
+  }
+
+  .btn {
+    padding: 0;
+    font-size: 14pt;
+
+    .search-icon {
+      display: inline-block;
+
+      &::before {
+        float: left;
+        margin: 8px;
+      }
+    }
+  }
+}
+
+.element-disabled {
+  pointer-events: none;
+  opacity: 0.6;
+  color: #D0D0D0;
+}
+
+.btn-outline {
+  width: @dropdown-width;
+  border: 1px #001E00 solid;
+  background-color:  @dropdown-background-color;
+  font-size: 16pt;
+  overflow: hidden;
+  max-height: 40px;
+  margin: 1px;
+
+  .primary {
+    &:hover {
+      .hovered();
+    }
+  }
+
+  &:focus {
+    .focused();
+  }
+}
+
+.dropdown-menu {
+  color: #001E00;
+  border: 1px #001E00 solid;
+  width: @dropdown-width;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  padding: .5rem 0;
+  font-size: 1rem;
+  text-align: left;
+  list-style: none;
+  background-clip: padding-box;
+  word-break: break-word;
+  max-height: 300px;
+  overflow-y: scroll;
+
+  .dropdown-item:hover {
+    .hovered();
+  }
+}
+
+.dropdown-item {
+  box-sizing: border-box;
+  border: none;
+  text-align: center;
+  display: inline-block;
+  padding: 5px 1.5rem;
+  clear: both;
+  background: 0 0;
+  white-space: pre-line;
+
+  &:hover {
+    background-color: transparent;
+    color: @dropdown-hover-color;
+  }
+
+  &:focus {
+    .focused();
+  }
+}
+
+.show {
+  display: inline-block;
+}
+
+.dropdown-toggle {
+
+  .dropdown-item {
+    width: 85%;
+  }
+
+  &::after {
+    float: right;
+    margin: 16px 6px;
+  }
+
+
+  &:focus {
+    .focused();
+    box-shadow: none;
+  }
+}

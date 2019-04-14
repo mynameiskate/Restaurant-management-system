@@ -1,0 +1,33 @@
+<div ngbDropdown class="dropdown" #dropdownInstance="ngbDropdown" [ngClass]="{ 'element-disabled': disabled }">
+  <h2 class="toggler-title" *ngIf="label">{{ label }}</h2>
+  <div class="search-container">
+    <div ngbDropdownToggle class="btn btn-outline primary autocomplete" on-toggle="onTouchCallback()">
+      <i class="fa fa-search search-icon"></i>
+      <clb-editable
+        class="autocomplete-editable"
+        (ngModelChange)="autocompleteOptions($event)"
+        [(ngModel)]="searchText"
+      >
+      </clb-editable>
+    </div>
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic">
+      <button
+        *ngFor="let item of autocompleteItems"
+        type="button"
+        class="dropdown-item"
+        (click)="onItemSelect(item.id)">
+        <ng-container
+          *ngTemplateOutlet="itemTemplate || defItemTemplate; context: {$implicit: item}">
+        </ng-container>
+      </button>
+    </div>
+  </div>
+</div>
+  
+<ng-template dropdown-selected-value let-item #defItemTemplate>
+  <div
+    class="dropdown-item"
+  >
+    {{ item.value }}
+  </div>
+</ng-template>

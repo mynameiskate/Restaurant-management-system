@@ -1,0 +1,10 @@
+<div
+  #element
+  class="editable"
+  (keyup)="updateValue()"
+  (keydown)="limitLength($event)"
+  (blur)="onTouchCallback()"
+  contenteditable="true">
+</div>
+
+<!--[ngClass]="{ 'element-disabled': disabled}"-->

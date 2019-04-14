@@ -23,10 +23,12 @@
   },
   "homepage": "https://github.com/mynameiskate/Restaurant-management-system#readme",
   "dependencies": {
+    "@ng-bootstrap/ng-bootstrap": "^4.1.1",
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "msnodesqlv8": "^0.6.12",
     "mssql": "^4.3.2",
+    "ng-bootstrap": "^1.6.3",
     "observable": "^2.1.4",
     "rxjs-observable": "0.0.7"
   }

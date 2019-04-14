@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
@@ -14,6 +15,9 @@ import { AuthenticationComponent } from './components/authentication/authenticat
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { EditingComponent } from './components/editing/editing.component';
 import { RouteHelper } from './helpers/route.helper';
+import { DishService } from './services/dish.service';
+import { AutocompleteComponent } from './components/shared/autocomplete/autocomplete.component';
+import { ContentEditableComponent } from './components/shared/content-editable/content-editable.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -33,17 +37,21 @@ const appRoutes: Routes = [
     OrderComponent,
     AuthenticationComponent,
     NotFoundComponent,
-    EditingComponent
+    EditingComponent,
+    AutocompleteComponent,
+    ContentEditableComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   providers: [
-    RouteHelper
+    RouteHelper,
+    DishService
   ],
   bootstrap: [AppComponent]
 })

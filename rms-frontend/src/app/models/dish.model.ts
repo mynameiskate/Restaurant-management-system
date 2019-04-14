@@ -5,6 +5,6 @@ export interface Dish {
   cost: number;
   weight: number;
   nutritionalValue: number;
-  isAvaliable: boolean;
-  imageId: string;
+  isAvailable: boolean;
+  imageId?: string;
 }

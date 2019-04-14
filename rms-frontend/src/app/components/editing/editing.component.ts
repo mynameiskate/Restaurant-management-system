@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Dish } from '../../models/dish.model';
 import { DishService } from '../../services/dish.service';
 import { appConfig } from '../../configs/app.config';
+import { IDropdownItem } from '../shared/models/dropdown-item.interface';
 
 @Component({
   selector: 'app-editing',
@@ -12,20 +13,34 @@ import { appConfig } from '../../configs/app.config';
   providers: [DishService]
 })
 export class EditingComponent implements OnInit {
-  name: String = '';
-  description: String = '';
-  cost: String = '';
-  weight: String = '';
-  nutritionalValue: String = '';
-  dishCategory: String = '';
-  isAvailable: Boolean = false;
-
   incorrectData: Boolean = false;
   operationName: String = 'create';
+  selectedDish: Dish;
+  editedDish: Dish = {
+    id: null,
+    name: '',
+    description: '',
+    cost: null,
+    weight: null,
+    nutritionalValue: null,
+    isAvailable: false
+  };
+  dishOptionsCache: Array<any> = [];
 
   constructor(private dishService: DishService) { }
 
   ngOnInit() {
+    this.dishService.dishDropdownPromise
+      .then((data) => {
+        this.dishOptionsCache = data;
+      })
+  }
+
+  onDishSelect(id: number) {
+    this.selectedDish = this.dishOptionsCache
+      .find((dish) => dish.id == id);
+    
+    this.editedDish = { ...this.selectedDish };
   }
 
   chooseOperation(event) {
@@ -34,16 +49,12 @@ export class EditingComponent implements OnInit {
   }
 
   checkEnteredData() {
+    const { name, description, cost, weight, nutritionalValue } = this.editedDish;
     switch (this.operationName) {
       case 'create': {
         console.log('create');
-        if (this.name && this.description && this.cost && this.weight && this.nutritionalValue && this.dishCategory) {
+        if (name && description && cost && weight && nutritionalValue /* && this.dishCategory*/) {
             this.incorrectData = false;
-            console.log(this.name, this.description, this.cost,this.weight, this.nutritionalValue,this.dishCategory, this.isAvailable);
-            // this.dishService.createDish()
-            //   .subscribe(res => {
-            //     console.log(res);
-            // });
         } else {
           this.incorrectData = true;
         }
@@ -65,4 +76,7 @@ export class EditingComponent implements OnInit {
     console.log(fileList);
   }
 
+  autocompleteOptions = (searchInput: string) => (
+    this.dishService.getDishAutocompleteOptions(searchInput)
+  )
 }
