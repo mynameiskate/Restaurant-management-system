@@ -19,7 +19,7 @@ const createDish = (req, res, next) => {
     weight,
     nutritionalValue,
     isAvailable,
-    dishCategoryId 
+    category
   } = req.body;
 
   pool.executeQuery(`exec createDish 
@@ -29,7 +29,7 @@ const createDish = (req, res, next) => {
     @weight=${weight},
     @nutritionalValue='${nutritionalValue}', 
     @isAvailable=${isAvailable}, 
-    @dishCategoryId=${dishCategoryId};`,
+    @dishCategoryId=${category.id};`,
     (result) => {
       res.send(result);
     }, next);
@@ -44,7 +44,7 @@ const updateDish = (req, res, next) => {
     weight,
     nutritionalValue,
     isAvailable,
-    dishCategoryId
+    category
   } = req.body;
 
   pool.executeQuery(`exec updateDish 
@@ -55,7 +55,7 @@ const updateDish = (req, res, next) => {
     @weight=${weight},
     @nutritionalValue='${nutritionalValue}', 
     @isAvailable=${isAvailable}, 
-    @dishCategoryId=${dishCategoryId};`,
+    @dishCategoryId=${category.id};`,
   (result) => {
     res.status(200);
     res.send(result);

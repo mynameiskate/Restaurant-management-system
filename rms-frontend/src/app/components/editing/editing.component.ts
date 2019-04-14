@@ -23,9 +23,14 @@ export class EditingComponent implements OnInit {
     cost: null,
     weight: null,
     nutritionalValue: null,
-    isAvailable: false
+    isAvailable: false,
+    category: {
+      id: null,
+      name: null
+    }
   };
   dishOptionsCache: Array<any> = [];
+  categoryOptionsCache: Array<any> = [];
 
   constructor(private dishService: DishService) { }
 
@@ -33,6 +38,11 @@ export class EditingComponent implements OnInit {
     this.dishService.dishDropdownPromise
       .then((data) => {
         this.dishOptionsCache = data;
+      });
+
+    this.dishService.categoryDropdownPromise
+      .then((data) => {
+        this.categoryOptionsCache = data;
       })
   }
 
@@ -41,6 +51,11 @@ export class EditingComponent implements OnInit {
       .find((dish) => dish.id == id);
     
     this.editedDish = { ...this.selectedDish };
+  }
+
+  setDishCategory(id: number) {
+    this.editedDish.category = this.categoryOptionsCache
+      .find((dish) => dish.id == id);
   }
 
   chooseOperation(event) {

@@ -7,6 +7,7 @@
         class="autocomplete-editable"
         (ngModelChange)="autocompleteOptions($event)"
         [(ngModel)]="searchText"
+        (valueUpdated)="openDropdown()"
       >
       </clb-editable>
     </div>

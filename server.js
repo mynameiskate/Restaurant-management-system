@@ -25,6 +25,9 @@ app.get('/api/images/:id', routes.images.getImage);
 // users
 app.get('/api/employees', routes.users.getEmployees);
 
+// categories
+app.get('/api/categories', routes.categories.getCategories);
+
 // orders
 app.get('/api/orders/:id', routes.orders.getOrder);
 app.get('/api/orders', routes.orders.getOrders);

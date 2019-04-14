@@ -40,9 +40,13 @@
         <span class="label-text">Nutritional Value</span>
         <input type="text" name="nutritionalValue" [(ngModel)]="editedDish.nutritionalValue" required>
       </label>
-      <label *ngIf="operationName !== 'delete'">
+      <label *ngIf="(operationName !== 'delete') && editedDish.category">
         <span class="label-text">Dish Category</span>
-        <input type="text" name="dishCategory" [(ngModel)]="editedDish.dishCategory" required>
+        <clb-autocomplete
+          name="dishCategory"
+          [(ngModel)]="editedDish.category.id"
+          [items]="categoryOptionsCache">
+        </clb-autocomplete>
       </label>
       <label *ngIf="operationName !== 'delete'">
         <span class="label-text">DishImage</span>

@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { ControlValueAccessorBase, CreateAccessorProvider } from "../control-value-accessor/ControlValueAccessorBase";
 
 @Component({
@@ -8,6 +8,7 @@ import { ControlValueAccessorBase, CreateAccessorProvider } from "../control-val
 })
 export class ContentEditableComponent extends ControlValueAccessorBase<string> {
   @Input() maxLength: number = 25;
+  @Output() valueUpdated = new EventEmitter<string>();
   @ViewChild('element') element: ElementRef;
 
   searchText: string;
@@ -15,6 +16,7 @@ export class ContentEditableComponent extends ControlValueAccessorBase<string> {
   updateValue() {
     this.searchText = this.element.nativeElement.innerText;
     this.onChangeCallback(this.element.nativeElement.innerText);
+    this.valueUpdated.emit(this.searchText);
   }
 
   limitLength(event: any) {

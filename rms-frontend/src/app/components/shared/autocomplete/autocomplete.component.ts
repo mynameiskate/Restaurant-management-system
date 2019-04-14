@@ -1,8 +1,9 @@
-import { Component, Input, Output, EventEmitter, TemplateRef, OnChanges, OnInit, HostListener } from '@angular/core';
+import { Component, Input, Output, EventEmitter, TemplateRef, OnChanges, OnInit, HostListener, ViewChild } from '@angular/core';
 import { IDropdownItem } from '../models/dropdown-item.interface';
 import { ControlValueAccessorBase, CreateAccessorProvider } from '../../shared/control-value-accessor/ControlValueAccessorBase';
 
 import * as _ from 'underscore';
+import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'clb-autocomplete',
@@ -19,6 +20,8 @@ export class AutocompleteComponent extends ControlValueAccessorBase<number> impl
   @Input() debounceTime = 200;
 
   @Output() selectionChange = new EventEmitter<number>();
+
+  @ViewChild(NgbDropdown) private dropdown: NgbDropdown;
 
   searchText: string;
   selectedItem: IDropdownItem;
@@ -52,6 +55,10 @@ export class AutocompleteComponent extends ControlValueAccessorBase<number> impl
     }
   }
 
+  openDropdown() {
+    this.dropdown.open();
+  }
+
   autocompleteOptions(value: any) {
     if (!value || !value.length) {
       this.autocompleteItems = this.items;
@@ -59,7 +66,7 @@ export class AutocompleteComponent extends ControlValueAccessorBase<number> impl
       this.autocompleteItems = _.filter(this.items,
         (item: IDropdownItem) => (
           item.value.toLowerCase().indexOf(value.toLowerCase()) !== -1)
-      )
+      );
     } else {
       this.autocompletePromiseFunction(value)
         .then(options => {

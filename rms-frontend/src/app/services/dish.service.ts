@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { Dish } from '../models/dish.model';
 import { RouteHelper } from '../helpers/route.helper';
 import { IDropdownItem } from '../components/shared/models/dropdown-item.interface';
+import { Category } from '../models/category.model';
 
 @Injectable()
 export class DishService implements OnInit {
@@ -31,12 +32,24 @@ export class DishService implements OnInit {
       .toPromise();
   }
 
+  get categoryDropdownPromise() {
+    return this.getDishCategories()
+      .pipe(map(data => 
+        this.mapDataToDropdownModel(data))
+      )
+      .toPromise();
+  }
+
   getDishAutocompleteOptions (searchInput: string) {
     return Promise.resolve(this.searchDishOptions(searchInput));
   }
 
   getDishes(): Observable<Dish[]> {
     return this.http.get<Dish[]>(this.routeHelper.dishRoute);
+  }
+
+  getDishCategories(): Observable<Category[]> {
+    return this.http.get<Category[]>(this.routeHelper.categoryRoute);
   }
 
   updateDish(dish: Dish): Observable<any> {
@@ -55,8 +68,8 @@ export class DishService implements OnInit {
     return this.http.delete(url);
   }
 
-  private mapDataToDropdownModel(dishes: Array<Dish>): Array<IDropdownItem> {
-    return dishes.map((model) => ({...model, value: model.name}));
+  private mapDataToDropdownModel(data: Array<any>): Array<IDropdownItem> {
+    return data.map((model) => ({...model, value: model.name}));
   }
 
   private searchDishOptions = (searchInput: string) => {
