@@ -25,13 +25,13 @@ const createDish = (req, res, next) => {
   pool.executeQuery(`exec createDish 
     @name='${name}',
     @description='${description}',
-    @cost=${cost},
-    @weight=${weight},
+    @cost=${parseFloat(cost)},
+    @weight=${parseFloat(weight)},
     @nutritionalValue='${nutritionalValue}', 
     @isAvailable=${isAvailable}, 
-    @dishCategoryId=${category.id};`,
+    @dishCategoryId=${parseInt(category.id)};`,
     (result) => {
-      res.send(result);
+      res.send(result.recordset[0]);
     }, next);
 }
 
@@ -51,14 +51,14 @@ const updateDish = (req, res, next) => {
     @dishId=${dishId},
     @name='${name}',
     @description='${description}',
-    @cost=${cost},
-    @weight=${weight},
+    @cost=${parseFloat(cost)},
+    @weight=${parseFloat(weight)},
     @nutritionalValue='${nutritionalValue}', 
     @isAvailable=${isAvailable}, 
-    @dishCategoryId=${category.id};`,
-  (result) => {
+    @dishCategoryId=${parseInt(category.id) || 0};`,
+  () => {
     res.status(200);
-    res.send(result);
+    res.send();
   }, next);
 }
 

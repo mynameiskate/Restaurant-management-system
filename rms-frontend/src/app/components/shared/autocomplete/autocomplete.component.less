@@ -20,6 +20,10 @@ h2 {
 .editable {
   height: 100%;
   font-size: 18pt;
+
+  &:focus {
+    .focused();
+  }
 }
 
 .search-container {
@@ -73,6 +77,7 @@ h2 {
 .btn-outline {
   width: @dropdown-width;
   border: 1px #001E00 solid;
+  border-radius: 0;
   background-color:  @dropdown-background-color;
   font-size: 16pt;
   overflow: hidden;

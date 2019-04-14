@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 import { Dish } from '../../models/dish.model';
 import { DishService } from '../../services/dish.service';
@@ -17,7 +18,8 @@ export class MenuComponent implements OnInit {
   choosedDishes = [];
 
   constructor(private dishService: DishService,
-    private routeHelper: RouteHelper) { }
+    private routeHelper: RouteHelper,
+    private router: Router) { }
 
   getImageUrl(imageId) {
     return `${this.routeHelper.imageRoute}/${imageId}`;
@@ -28,10 +30,6 @@ export class MenuComponent implements OnInit {
       .subscribe(res => {
         this.dishes = res;
         console.log(this.dishes);
-        //temp
-        // for (let dish of this.dishes) {
-        //   dish.isAvailable = true;
-        // }
       }); 
   }
 
@@ -49,5 +47,15 @@ export class MenuComponent implements OnInit {
 
   createOrder() {
     console.log(this.choosedDishes);
+  }
+
+  updateDish(dish) {
+    localStorage.setItem('editingDish', JSON.stringify(dish));
+    localStorage.setItem('operationName', 'update');
+  }
+
+  deleteDish(dish) {
+    localStorage.setItem('editingDish', JSON.stringify(dish));
+    localStorage.setItem('operationName', 'delete');
   }
 }

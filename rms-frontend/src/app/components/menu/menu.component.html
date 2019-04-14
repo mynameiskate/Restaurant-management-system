@@ -16,6 +16,12 @@
     </div>
     <p class="description">{{ dish.description }}</p>
     <div [ngClass]="{'check-mark': dish.isChoosed}"></div>
+    <div class="adminButtons">
+      <button name="update" (click)="updateDish(dish)"
+        [routerLink]="['/editing', dish.id]">Update</button>
+      <button name="delete" (click)="deleteDish(dish)"
+        [routerLink]="['/editing', dish.id]">Delete</button>
+    </div> 
   </div>
 </div>
 

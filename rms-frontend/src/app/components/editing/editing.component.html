@@ -1,12 +1,13 @@
 <app-header></app-header>
 
-<div class="d-flex justify-content-center mb-3">
+<div class="d-flex justify-content-center mb-3" *ngIf="operationName !== 'create'">
   <clb-autocomplete
     (selectionChange)="onDishSelect($event)"
     [items]="dishOptionsCache"
     label="Search in menu">
   </clb-autocomplete>
 </div>
+
 <section class="d-flex justify-content-center align-items-center flex-column">
 
   <div class="button-group">
@@ -24,23 +25,23 @@
         <span class="label-text">Name</span>
         <input type="text" name="name" [(ngModel)]="editedDish.name" required>
       </label>
-      <label *ngIf="operationName !== 'delete'">
+      <label>
         <span class="label-text">Description</span>
         <input type="text" name="description" [(ngModel)]="editedDish.description" required>
       </label>
-      <label *ngIf="operationName !== 'delete'">
+      <label>
         <span class="label-text">Cost</span>
         <input type="text" name="cost" [(ngModel)]="editedDish.cost" required>
       </label>
-      <label *ngIf="operationName !== 'delete'">
+      <label>
         <span class="label-text">Weight</span>
         <input type="text" name="weight" [(ngModel)]="editedDish.weight" required>
       </label>
-      <label *ngIf="operationName !== 'delete'">
+      <label>
         <span class="label-text">Nutritional Value</span>
         <input type="text" name="nutritionalValue" [(ngModel)]="editedDish.nutritionalValue" required>
       </label>
-      <label *ngIf="(operationName !== 'delete') && editedDish.category">
+      <label>
         <span class="label-text">Dish Category</span>
         <clb-autocomplete
           name="dishCategory"
@@ -48,12 +49,12 @@
           [items]="categoryOptionsCache">
         </clb-autocomplete>
       </label>
-      <label *ngIf="operationName !== 'delete'">
-        <span class="label-text">DishImage</span>
+      <label>
+        <span class="label-text">Image</span>
         <input type="file" name="dishImage" [(ngModel)]="editedDish.dishImage" accept=".jpg" (change)="fileChange($event)">
       </label>
-      <label class="checkbox" *ngIf="operationName !== 'delete'">
-        <input type="checkbox" name="isAvailable" [(ngModel)]="isAvailable" required>
+      <label class="checkbox">
+        <input type="checkbox" name="isAvailable" [(ngModel)]="editedDish.isAvailable" required>
         <span class="label-text">Is Available</span>
       </label>
 

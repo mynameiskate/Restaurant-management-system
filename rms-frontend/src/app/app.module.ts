@@ -25,6 +25,7 @@ const appRoutes: Routes = [
   {path: 'order', component: OrderComponent},
   {path: 'authentication', component: AuthenticationComponent},
   {path: 'editing', component: EditingComponent},
+  {path: 'editing/:id', component: EditingComponent },
   {path: '**', component: NotFoundComponent}
 ]
 
@@ -48,6 +49,9 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FormsModule,
     NgbModule
+  ],
+  exports: [
+    RouterModule
   ],
   providers: [
     RouteHelper,

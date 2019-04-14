@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 import { Dish } from '../../models/dish.model';
 import { DishService } from '../../services/dish.service';
@@ -32,9 +33,28 @@ export class EditingComponent implements OnInit {
   dishOptionsCache: Array<any> = [];
   categoryOptionsCache: Array<any> = [];
 
-  constructor(private dishService: DishService) { }
+  constructor(private dishService: DishService,
+    private router: Router) { }
 
   ngOnInit() {
+    let name = localStorage.getItem('operationName');
+    if (name) {
+      this.operationName = name;
+    }
+    if (localStorage.getItem('editingDish')) {
+      const localDish = JSON.parse(localStorage.getItem('editingDish'));
+      console.log(localDish);
+      this.editedDish.id = localDish.id;
+      this.editedDish.name = localDish.name;
+      this.editedDish.description = localDish.description;
+      this.editedDish.cost = localDish.cost;
+      this.editedDish.weight = localDish.weight;
+      this.editedDish.nutritionalValue = localDish.nutritionalValue;
+      this.editedDish.isAvailable = localDish.isAvailable;
+      this.editedDish.category = localDish.category;
+      console.log(this.editedDish);
+    }
+
     this.dishService.dishDropdownPromise
       .then((data) => {
         this.dishOptionsCache = data;
@@ -49,8 +69,9 @@ export class EditingComponent implements OnInit {
   onDishSelect(id: number) {
     this.selectedDish = this.dishOptionsCache
       .find((dish) => dish.id == id);
-    
+
     this.editedDish = { ...this.selectedDish };
+    this.completeOperation();
   }
 
   setDishCategory(id: number) {
@@ -61,29 +82,55 @@ export class EditingComponent implements OnInit {
   chooseOperation(event) {
     this.operationName = event.path[0].name;
     this.incorrectData = false;
+    this.completeOperation();
   }
 
   checkEnteredData() {
-    const { name, description, cost, weight, nutritionalValue } = this.editedDish;
+    const { name, description, cost, weight, nutritionalValue, category } = this.editedDish;
     switch (this.operationName) {
       case 'create': {
-        console.log('create');
-        if (name && description && cost && weight && nutritionalValue /* && this.dishCategory*/) {
-            this.incorrectData = false;
+        if (name && description && cost && weight && nutritionalValue && category) {
+          this.incorrectData = false;
+          this.dishService.createDish(this.editedDish)
+            .subscribe(res => {
+              console.log(res);
+              alert('dish was successfully created');
+            });
         } else {
           this.incorrectData = true;
         }
         break;
       }
       case 'update': {
-        console.log('update');
+        if (this.editedDish.id) {
+          console.log(this.editedDish, this.operationName);
+          this.dishService.updateDish(this.editedDish)
+            .subscribe((res) => {
+              console.log(res);
+              alert('dish was successfully updated');
+              this.completeOperation();
+            });
+        }
         break;
       }
       case 'delete': {
-        console.log('delete');
+        if (this.editedDish.id) {
+          this.dishService.deleteDish(this.editedDish.id)
+            .subscribe((res) => {
+              console.log(res);
+              alert('dish was successfully deleted');
+              this.completeOperation();
+            });
+        }
         break;
       }
     }
+  }
+
+  completeOperation() {
+    localStorage.removeItem('editingDish');
+    // localStorage.removeItem('operationName');
+    this.router.navigate(['/editing']);
   }
 
   fileChange(event) {
