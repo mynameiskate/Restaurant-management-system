@@ -49,11 +49,11 @@
         </clb-autocomplete>
       </label>
       <label *ngIf="operationName !== 'delete'">
-        <span class="label-text">DishImage</span>
+        <span class="label-text">Image</span>
         <input type="file" name="dishImage" [(ngModel)]="editedDish.dishImage" accept=".jpg" (change)="fileChange($event)">
       </label>
       <label class="checkbox" *ngIf="operationName !== 'delete'">
-        <input type="checkbox" name="isAvailable" [(ngModel)]="isAvailable" required>
+        <input type="checkbox" name="isAvailable" [(ngModel)]="editedDish.isAvailable" required>
         <span class="label-text">Is Available</span>
       </label>
 

@@ -64,12 +64,16 @@ export class EditingComponent implements OnInit {
   }
 
   checkEnteredData() {
-    const { name, description, cost, weight, nutritionalValue } = this.editedDish;
+    const { name, description, cost, weight, nutritionalValue, category } = this.editedDish;
     switch (this.operationName) {
       case 'create': {
         console.log('create');
-        if (name && description && cost && weight && nutritionalValue /* && this.dishCategory*/) {
+        if (name && description && cost && weight && nutritionalValue && category) {
             this.incorrectData = false;
+            this.dishService.createDish(this.editedDish)
+              .subscribe(res => {
+                console.log(res);
+              });
         } else {
           this.incorrectData = true;
         }
@@ -77,10 +81,22 @@ export class EditingComponent implements OnInit {
       }
       case 'update': {
         console.log('update');
+        if (this.editedDish.id) {
+          this.dishService.updateDish(this.editedDish)
+            .subscribe((res) => {
+              console.log(res)
+            });
+        }
         break;
       }
       case 'delete': {
         console.log('delete');
+        if (this.editedDish.id) {
+          this.dishService.deleteDish(this.editedDish.id)
+            .subscribe((res) => {
+              console.log(res)
+            });
+        }
         break;
       }
     }
