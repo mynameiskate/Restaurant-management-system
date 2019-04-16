@@ -17,6 +17,7 @@ import { IDropdownItem } from '../shared/models/dropdown-item.interface';
 })
 export class EditingComponent implements OnInit {
   private routeSubscription: Subscription;
+  private querySubscription: Subscription;
   private id: number;
 
   incorrectData: Boolean = false;
@@ -43,17 +44,13 @@ export class EditingComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.routeSubscription = this.route.params.subscribe(params=>this.id=parseInt(params['id']));
-    console.log(this.routeSubscription, this.id);
+    this.id = parseInt(this.route.snapshot.paramMap.get('id'));
+    this.operationName = this.route.snapshot.paramMap.get('operation') || 'create';
 
-    let name = localStorage.getItem('operationName');
-    if (name) {
-      this.operationName = name;
-    }
     if (this.id){
       this.dishService.getDish(this.id)
           .subscribe(res => {
-            console.log(res);
+            this.editedDish = res;
           });
     }
 
@@ -104,7 +101,6 @@ export class EditingComponent implements OnInit {
       }
       case 'update': {
         if (this.editedDish.id) {
-          console.log(this.editedDish, this.operationName);
           this.dishService.updateDish(this.editedDish)
             .subscribe((res) => {
               console.log(res);
@@ -129,9 +125,7 @@ export class EditingComponent implements OnInit {
   }
 
   completeOperation() {
-    // localStorage.removeItem('editingDish');
-    // localStorage.removeItem('operationName');
-    this.router.navigate(['/editing']);
+    this.router.navigate(['/editing', {operation: this.operationName}]);
   }
 
   fileChange(event) {

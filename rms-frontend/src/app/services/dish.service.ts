@@ -48,6 +48,10 @@ export class DishService implements OnInit {
     return this.http.get<Dish[]>(this.routeHelper.dishRoute);
   }
 
+  getDish(dishId: number): Observable<Dish> {
+    return this.http.get<Dish>(this.routeHelper.dishRoute + '/' + dishId);
+  }
+
   getDishCategories(): Observable<Category[]> {
     return this.http.get<Category[]>(this.routeHelper.categoryRoute);
   }

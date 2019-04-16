@@ -18,9 +18,9 @@
     <div [ngClass]="{'check-mark': dish.isChoosed}"></div>
     <div class="adminButtons">
       <button name="update" (click)="updateDish(dish)"
-        [routerLink]="['/editing', dish.id]">Update</button>
+        [routerLink]="['/editing', dish.id, {operation: 'update'}]">Update</button>
       <button name="delete" (click)="deleteDish(dish)"
-        [routerLink]="['/editing', dish.id]">Delete</button>
+        [routerLink]="['/editing', dish.id, {operation: 'delete'}]">Delete</button>
     </div> 
   </div>
 </div>
