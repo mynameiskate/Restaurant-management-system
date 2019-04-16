@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import {Subscription} from 'rxjs';
+import { ActivatedRoute} from '@angular/router';
 import { Router } from '@angular/router';
 
 import { Dish } from '../../models/dish.model';
@@ -14,6 +16,9 @@ import { IDropdownItem } from '../shared/models/dropdown-item.interface';
   providers: [DishService]
 })
 export class EditingComponent implements OnInit {
+  private routeSubscription: Subscription;
+  private id: number;
+
   incorrectData: Boolean = false;
   operationName: String = 'create';
   selectedDish: Dish;
@@ -34,25 +39,22 @@ export class EditingComponent implements OnInit {
   categoryOptionsCache: Array<any> = [];
 
   constructor(private dishService: DishService,
-    private router: Router) { }
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.routeSubscription = this.route.params.subscribe(params=>this.id=parseInt(params['id']));
+    console.log(this.routeSubscription, this.id);
+
     let name = localStorage.getItem('operationName');
     if (name) {
       this.operationName = name;
     }
-    if (localStorage.getItem('editingDish')) {
-      const localDish = JSON.parse(localStorage.getItem('editingDish'));
-      console.log(localDish);
-      this.editedDish.id = localDish.id;
-      this.editedDish.name = localDish.name;
-      this.editedDish.description = localDish.description;
-      this.editedDish.cost = localDish.cost;
-      this.editedDish.weight = localDish.weight;
-      this.editedDish.nutritionalValue = localDish.nutritionalValue;
-      this.editedDish.isAvailable = localDish.isAvailable;
-      this.editedDish.category = localDish.category;
-      console.log(this.editedDish);
+    if (this.id){
+      this.dishService.getDish(this.id)
+          .subscribe(res => {
+            console.log(res);
+          });
     }
 
     this.dishService.dishDropdownPromise
@@ -63,13 +65,12 @@ export class EditingComponent implements OnInit {
     this.dishService.categoryDropdownPromise
       .then((data) => {
         this.categoryOptionsCache = data;
-      })
+      });
   }
 
   onDishSelect(id: number) {
     this.selectedDish = this.dishOptionsCache
       .find((dish) => dish.id == id);
-
     this.editedDish = { ...this.selectedDish };
     this.completeOperation();
   }
@@ -128,7 +129,7 @@ export class EditingComponent implements OnInit {
   }
 
   completeOperation() {
-    localStorage.removeItem('editingDish');
+    // localStorage.removeItem('editingDish');
     // localStorage.removeItem('operationName');
     this.router.navigate(['/editing']);
   }
