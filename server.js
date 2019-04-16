@@ -17,6 +17,7 @@ app.listen(8000, () => {
 app.get('/api/dishes', routes.dishes.getDishes);
 app.post('/api/dishes', routes.dishes.createDish);
 app.put('/api/dishes/:id', routes.dishes.updateDish);
+app.get('/api/dishes/:id', routes.dishes.getDish);
 app.delete('/api/dishes/:id', routes.dishes.deleteDish);
 
 // images

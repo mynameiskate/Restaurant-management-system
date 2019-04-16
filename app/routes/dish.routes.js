@@ -11,6 +11,24 @@ const getDishes = (req, res, next) => {
     }, next);
 }
 
+const getDish = (req, res, next) => {
+  const dishId = req.params.id;
+  pool.executeQuery(`exec getDish
+    @dishId=${dishId}`, (result) => {
+      if (result && result.recordset && result.recordset[0]) {
+        pool.executeQuery(`exec getDish
+          @dishId=${dishId}`, (dishes) => {
+            res.status(200);
+            res.send(new DishModel(result.recordset[0]));
+          }
+        )
+      } else {
+        res.status(404);
+        res.send('Not Found');
+      }
+    }, next);
+}
+
 const createDish = (req, res, next) => {
   const { 
     name,
@@ -94,5 +112,6 @@ module.exports = {
   createDish,
   updateDish,
   deleteDish,
-  assignCookToDish
+  assignCookToDish,
+  getDish
 }
