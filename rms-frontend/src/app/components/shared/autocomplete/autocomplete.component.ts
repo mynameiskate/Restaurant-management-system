@@ -49,7 +49,7 @@ export class AutocompleteComponent extends ControlValueAccessorBase<number> impl
       if (selectedItem) {
         this.selectedItem = selectedItem;
         this.searchText = selectedItem.value;
-        super.writeValue(selectedItem.value);
+        super.writeValue(selectedItem.id);
       }
     }
   }
