@@ -1,8 +1,10 @@
 const express = require('express');
 const cors = require('cors');
-const corsConfig = require('./app/configs/cors.config');
-const routes = require('./app/routes/routes');
 const bodyParser = require('body-parser');
+const expressJwt = require('express-jwt');
+const corsConfig = require('./app/configs/cors.config');
+const { jwtKey } = require('./app/configs/app.config');
+const routes = require('./app/routes/routes');
 const app = express();
 
 app.use(cors(corsConfig));
@@ -13,6 +15,10 @@ app.listen(8000, () => {
 });
 
 // setting up routes
+
+//auth 
+app.post('/api/auth', routes.auth.authorize);
+
 // dishes
 app.get('/api/dishes', routes.dishes.getDishes);
 app.post('/api/dishes', routes.dishes.createDish);
@@ -51,3 +57,16 @@ app.use((req, res, next) => {
   res.status(404);
   res.send('Not Found');
 });
+
+const allowUnauthorized = [
+  '/api/dishes',
+  '/api/auth',
+  '/api/dishes/:id',
+  '/api/images/:id',
+  '/api/categories',
+  '/api/orders/:id',
+  '/api/orders'
+];
+
+app.use(expressJwt({secret: jwtKey})
+  .unless({path: allowUnauthorized}));

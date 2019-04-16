@@ -3,11 +3,13 @@ imageRoutes = require('./image.routes.js');
 userRoutes = require('./user.routes.js');
 orderRoutes = require('./order.routes.js');
 categoryRoutes = require('./category.routes.js');
+authRoutes = require('./auth.routes.js');
 
 module.exports = {
   dishes: dishRoutes,
   images: imageRoutes,
   users: userRoutes,
   orders: orderRoutes,
-  categories: categoryRoutes
+  categories: categoryRoutes,
+  auth: authRoutes
 }

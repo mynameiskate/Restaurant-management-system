@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-
+import { AuthGuard } from './guards/auth.guard';
 import { AppComponent } from './app.component';
 import { AppHeaderComponent } from './components/app-header/app-header.component';
 import { HomeComponent } from './components/home/home.component';
@@ -18,13 +18,19 @@ import { RouteHelper } from './helpers/route.helper';
 import { DishService } from './services/dish.service';
 import { AutocompleteComponent } from './components/shared/autocomplete/autocomplete.component';
 import { ContentEditableComponent } from './components/shared/content-editable/content-editable.component';
+import { JwtModule } from '@auth0/angular-jwt';
+import { appConfig } from './configs/app.config';
+
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
+}
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'menu', component: MenuComponent},
   {path: 'order', component: OrderComponent},
   {path: 'authentication', component: AuthenticationComponent},
-  {path: 'editing', component: EditingComponent},
+  {path: 'editing', component: EditingComponent, canActivate: [AuthGuard]},
   {path: '**', component: NotFoundComponent}
 ]
 
@@ -47,11 +53,19 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
     FormsModule,
-    NgbModule
+    NgbModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: [appConfig.appDomain],
+        blacklistedRoutes: [`${appConfig.apiUrl}/${appConfig.authUrl}`]
+      }
+    })
   ],
   providers: [
     RouteHelper,
-    DishService
+    DishService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
