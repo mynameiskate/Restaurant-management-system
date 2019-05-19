@@ -16,6 +16,16 @@ const getUsers = (callback) => {
 }
 
 describe('Auth', () => {
+  describe('GET/ users', () => {
+    it('it should not GET credentials', (done) => {
+      chai.request(server)
+      .get('/api/users')
+      .end((err, res) => {
+        res.should.have.status(404);
+        done();
+      });
+    });
+  });
   describe('POST/: authorize', () => {
     it('it should not POST if no email and password are provided', (done) => {
       chai.request(server)
