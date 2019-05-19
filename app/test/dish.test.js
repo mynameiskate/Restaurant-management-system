@@ -22,6 +22,46 @@ describe('Dishes', () => {
     });
   });
   describe('/GET:id dishes', () => {
+    it('it should not GET the dish by negative value', (done) => {
+      chai.request(server)
+      .get('/api/dishes/-1')
+      .end((err, res) => {
+        res.should.have.status(400);
+        done();
+      });
+    });
+  });
+  describe('/GET:id dishes', () => {
+    it('it should not GET the dish by string value', (done) => {
+      chai.request(server)
+      .get('/api/dishes/1test')
+      .end((err, res) => {
+        res.should.have.status(400);
+        done();
+      });
+    });
+  });
+  describe('/GET:id dishes', () => {
+    it('it should not GET the dish by non-integer value', (done) => {
+      chai.request(server)
+      .get('/api/dishes/1.5')
+      .end((err, res) => {
+        res.should.have.status(400);
+        done();
+      });
+    });
+  });
+  describe('/GET:id dishes', () => {
+    it('it should not GET the dish by null value', (done) => {
+      chai.request(server)
+      .get('/api/dishes/null')
+      .end((err, res) => {
+        res.should.have.status(400);
+        done();
+      });
+    });
+  });
+  describe('/GET:id dishes', () => {
     it('it should GET the dish by existing id', (done) => {
       chai.request(server)
       .get('/api/dishes')
@@ -219,6 +259,38 @@ describe('Dishes', () => {
           const id = dishes.pop().id;
           chai.request(server)
           .put(`/api/dishes/${id}`)
+          .send(dish)
+          .end((err, res) => {
+            res.should.have.status(200);
+            done();
+          });
+        } else {
+          done();
+        }
+      });
+    });
+  });
+  describe('/PUT dish', () => {
+    it('it should not PUT a dish by a negative id', (done) => {
+      const dish = {
+        name: 'test put dish',
+        description: 'test description',
+        cost: 200,
+        weight: 400,
+        nutritionalValue: 300,
+        category: { id: 2},
+        isAvailable: 0
+      };
+      chai.request(server)
+      .get('/api/dishes')
+      .end((err, res) => {
+        res.should.have.status(200);
+        const dishes = res.body;
+
+        if (dishes.length > 0) {
+          const id = dishes.pop().id;
+          chai.request(server)
+          .put(`/api/dishes/-${id}`)
           .send(dish)
           .end((err, res) => {
             res.should.have.status(200);
@@ -773,6 +845,94 @@ describe('Dishes', () => {
           .delete(`/api/dishes/${id}`)
           .end((err, res) => {
             res.should.have.status(200);
+            done();
+          });
+        } else {
+          done();
+        }
+      });
+    });
+  });
+  describe('/DELETE dish', () => {
+    it('it should not DELETE the dish by negative id', (done) => {
+      chai.request(server)
+      .get('/api/dishes')
+      .end((err, res) => {
+        res.should.have.status(200);
+        const dishes = res.body;
+
+        if (dishes.length > 0) {
+          const id = dishes.pop().id;
+          chai.request(server)
+          .delete(`/api/dishes/-${id}`)
+          .end((err, res) => {
+            res.should.have.status(400);
+            done();
+          });
+        } else {
+          done();
+        }
+      });
+    });
+  });
+  describe('/DELETE dish', () => {
+    it('it should not DELETE the dish by non-integer id', (done) => {
+      chai.request(server)
+      .get('/api/dishes')
+      .end((err, res) => {
+        res.should.have.status(200);
+        const dishes = res.body;
+
+        if (dishes.length > 0) {
+          const id = dishes.pop().id;
+          chai.request(server)
+          .delete(`/api/dishes/${id}.5`)
+          .end((err, res) => {
+            res.should.have.status(400);
+            done();
+          });
+        } else {
+          done();
+        }
+      });
+    });
+  });
+  describe('/DELETE dish', () => {
+    it('it should not DELETE the dish by string id', (done) => {
+      chai.request(server)
+      .get('/api/dishes')
+      .end((err, res) => {
+        res.should.have.status(200);
+        const dishes = res.body;
+
+        if (dishes.length > 0) {
+          const id = dishes.pop().id;
+          chai.request(server)
+          .delete(`/api/dishes/${id}.test`)
+          .end((err, res) => {
+            res.should.have.status(400);
+            done();
+          });
+        } else {
+          done();
+        }
+      });
+    });
+  });
+  describe('/DELETE dish', () => {
+    it('it should not DELETE the dish by null value', (done) => {
+      chai.request(server)
+      .get('/api/dishes')
+      .end((err, res) => {
+        res.should.have.status(200);
+        const dishes = res.body;
+
+        if (dishes.length > 0) {
+          const id = dishes.pop().id;
+          chai.request(server)
+          .delete(`/api/dishes/null`)
+          .end((err, res) => {
+            res.should.have.status(400);
             done();
           });
         } else {

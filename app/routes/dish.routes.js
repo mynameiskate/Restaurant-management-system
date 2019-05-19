@@ -13,6 +13,12 @@ const getDishes = (req, res, next) => {
 
 const getDish = (req, res, next) => {
   const dishId = req.params.id;
+
+  if (!Number.isInteger(+dishId) || (+dishId < 0)) {
+    res.sendStatus(400);
+    return;
+  }
+  
   pool.executeQuery(`exec getDish
     @dishId=${dishId}`, (result) => {
       if (result && result.recordset && result.recordset[0]) {
@@ -128,6 +134,11 @@ const updateDish = (req, res, next) => {
 
 const deleteDish = (req, res, next) => {
   const dishId = req.params.id;
+
+  if (!Number.isInteger(+dishId) || (+dishId < 0)) {
+    res.sendStatus(400);
+    return;
+  }
 
   pool.executeQuery(`exec deleteDish @dishId=${dishId}`, 
   (result) => {
