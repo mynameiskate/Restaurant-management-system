@@ -27,6 +27,7 @@ app.get('/api/dishes/:id', routes.dishes.getDish);
 app.delete('/api/dishes/:id', routes.dishes.deleteDish);
 
 // images
+app.get('/api/images', routes.images.getImages);
 app.get('/api/images/:id', routes.images.getImage);
 
 // users
@@ -40,6 +41,7 @@ app.get('/api/orders/:id', routes.orders.getOrder);
 app.get('/api/orders', routes.orders.getOrders);
 app.post('/api/orders', routes.orders.createOrder);
 app.put('/api/orders/:id', routes.orders.updateOrder);
+app.put('/api/orders', routes.orders.assignCookToDish);
 
 // global error handler
 app.use((err, req, res, next) => {
@@ -70,3 +72,5 @@ const allowUnauthorized = [
 
 app.use(expressJwt({secret: jwtKey})
   .unless({path: allowUnauthorized}));
+
+module.exports = app;

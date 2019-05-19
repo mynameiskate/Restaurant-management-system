@@ -4,7 +4,7 @@
   "description": "super cool restaurant management system",
   "main": "server.js",
   "scripts": {
-    "test": "test",
+    "test": "mocha app/test/**/*.test.js --timeout 60000 --exit",
     "start": "node server.js"
   },
   "repository": {
@@ -34,5 +34,10 @@
     "ng-bootstrap": "^1.6.3",
     "observable": "^2.1.4",
     "rxjs-observable": "0.0.7"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^6.1.4"
   }
 }

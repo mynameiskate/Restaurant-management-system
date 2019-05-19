@@ -38,8 +38,26 @@ const createOrder = (req, res, next) => {
     dishes
   } = req.body;
 
+  if (!tableNum || !created || !guestName) {
+    res.status(400);
+    res.send({error: 'Table number, creation date, and name of guest should not be empty'});
+    return;
+  }
+  
+  if (!Number.isInteger(tableNum) || (parseInt(tableNum) < 0)) {
+    res.status(400);
+    res.send({error: 'Table number should be a positive integer number.'});
+    return;
+  }
+
+  if (!dishes || !dishes.length) {
+    res.status(400);
+    res.send({error: 'Order should contain dishes.'});
+    return;
+  }
+
   pool.executeQuery(`exec createOrder 
-    @table=${tableNum},
+    @table=${parseInt(tableNum)},
     @created=${created},
     @guestName='${guestName}';`,
   (orderId) => {
@@ -59,12 +77,37 @@ const updateOrder = (req, res, next) => {
     dishes
   } = req.body;
 
+  if (!tableNum || !guestName || !waiterId || !statusId) {
+    res.status(400);
+    res.send({error: 'Table number, creation date, ID of waiter, status and name of guest should not be empty'});
+  }
+  
+  if (!Number.isInteger(tableNum) || (parseInt(tableNum) < 0)) {
+    res.status(400);
+    res.send({error: 'Table number should be a positive integer number.'});
+  }
+
+  if (!Number.isInteger(waiterId) || (parseInt(waiterId) < 0)) {
+    res.status(400);
+    res.send({error: 'ID of waiter should be a positive integer number.'});
+  }
+
+  if (!Number.isInteger(statusId) || (parseInt(statusId) < 0)) {
+    res.status(400);
+    res.send({error: 'ID of status should be a positive integer number.'});
+  }
+
+  if (!dishes || !dishes.length) {
+    res.status(400);
+    res.send({error: 'Order should contain dishes.'});
+  }
+
   pool.executeQuery(`exec updateOrder
-    @orderId=${orderId},
-    @table=${tableNum},
+    @orderId=${parseInt(orderId)},
+    @table=${parseInt(tableNum)},
     @guestName='${guestName}',
-    @waiterId=${waiterId},
-    @statusId=${statusId};`,
+    @waiterId=${parseInt(waiterId)},
+    @statusId=${parseInt(statusId)};`,
   () => {
       updateOrderDishes(orderId, dishes);
       res.status(200);
@@ -83,9 +126,48 @@ const updateOrderDishes = (orderId, dishes) => {
   });
 }
 
+const assignCookToDish = (req, res, next) => {
+  let {
+    cookId,
+    dishId,
+    orderId
+  } = req.query;
+
+  if (!cookId || !orderId || !dishId) {
+    res.status(400);
+    res.send({error: 'ID of cook, order and dish should not be empty.'});
+  }
+
+  if (!Number.isInteger(+cookId) || !Number.isInteger(+dishId) || !Number.isInteger(+orderId)) {
+    res.status(400);
+    res.send({error: 'ID of cook, dish and order should be integer values.'});
+    return;
+  }
+
+  cookId = parseInt(req.query.cookId);
+  dishId = parseInt(req.query.dishId);
+  orderId = parseInt(req.query.orderId);
+
+  if ((cookId < 0) || (dishId < 0) || (orderId < 0)) {
+    res.status(400);
+    res.send({error: 'ID of cook, dish and order should be positive integer values.'});
+    return;
+  }
+
+  pool.executeQuery(`exec assignCookToDish
+    @employeeId=${cookId},
+    @dishId=${dishId}
+    @orderId=${orderId};`,
+  (result) => {
+    res.status(200);
+    res.send(result);
+  }, next);
+}
+
 module.exports = {
   getOrders,
   getOrder,
   updateOrder,
-  createOrder
+  createOrder,
+  assignCookToDish
 }

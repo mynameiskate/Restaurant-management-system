@@ -91,7 +91,6 @@ export class EditingComponent implements OnInit {
           this.incorrectData = false;
           this.dishService.createDish(this.editedDish)
             .subscribe(res => {
-              console.log(res);
               alert('dish was successfully created');
             });
         } else {
@@ -103,7 +102,6 @@ export class EditingComponent implements OnInit {
         if (this.editedDish.id) {
           this.dishService.updateDish(this.editedDish)
             .subscribe((res) => {
-              console.log(res);
               alert('dish was successfully updated');
               this.completeOperation();
             });
