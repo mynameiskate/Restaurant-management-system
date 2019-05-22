@@ -13,6 +13,12 @@ const getDishes = (req, res, next) => {
 
 const getDish = (req, res, next) => {
   const dishId = req.params.id;
+
+  if (!Number.isInteger(+dishId) || (+dishId < 0)) {
+    res.sendStatus(400);
+    return;
+  }
+  
   pool.executeQuery(`exec getDish
     @dishId=${dishId}`, (result) => {
       if (result && result.recordset && result.recordset[0]) {
@@ -33,24 +39,48 @@ const createDish = (req, res, next) => {
   const { 
     name,
     description,
-    cost,
-    weight,
     nutritionalValue,
     isAvailable,
     category
   } = req.body;
 
+  const cost = parseFloat(req.body.cost);
+  const weight = parseFloat(req.body.weight);
+
+  if (!name || !cost || !weight || !category) {
+    res.status(400);
+    res.send({error: 'Name, cost, weight, category of the dish should not be empty.'});
+    return;
+  }
+
+  if (!Number.isInteger(category.id)) {
+    res.status(400);
+    res.send({error: 'Dish category id should be an integer value.'});
+    return;
+  }
+
+  if ((cost < 0) || (weight < 0) || (category.id < 0)) {
+    res.status(400);
+    res.send({error: 'Cost, weight ID of category be positive integer values.'});
+    return;
+  }
+
+  let dishId = 0;
+
   pool.executeQuery(`exec createDish 
     @name='${name}',
     @description='${description}',
-    @cost=${parseFloat(cost)},
-    @weight=${parseFloat(weight)},
-    @nutritionalValue='${nutritionalValue}', 
-    @isAvailable=${isAvailable}, 
+    @cost=${cost},
+    @weight=${weight},
+    @nutritionalValue='${nutritionalValue}',
+    @isAvailable=${isAvailable || 0},
+    @dishId=${dishId},
     @dishCategoryId=${parseInt(category.id)};`,
     (result) => {
-      res.send(result.recordset[0]);
-    }, next);
+      res.sendStatus(200);
+    }, () => {
+      res.sendStatus(400);
+    });
 }
 
 const updateDish = (req, res, next) => {
@@ -58,52 +88,62 @@ const updateDish = (req, res, next) => {
   const {
     name,
     description,
-    cost,
-    weight,
     nutritionalValue,
     isAvailable,
     category
   } = req.body;
 
+  const cost = parseFloat(req.body.cost);
+  const weight = parseFloat(req.body.weight);
+
+  if (!name || !cost || !weight || !category) {
+    res.status(400);
+    res.send({error: 'Name, cost, weight, category of the dish should not be empty.'});
+    return;
+  }
+
+  if (!Number.isInteger(category.id)) {
+    res.status(400);
+    res.send({error: 'Dish category id should be an integer value.'});
+    return;
+  }
+
+  if ((cost < 0) || (weight < 0) || (category.id < 0)) {
+    res.status(400);
+    res.send({error: 'Cost, weight ID of category be positive integer values.'});
+    return;
+  }
+
   pool.executeQuery(`exec updateDish 
     @dishId=${dishId},
     @name='${name}',
     @description='${description}',
-    @cost=${parseFloat(cost)},
-    @weight=${parseFloat(weight)},
+    @cost=${cost},
+    @weight=${weight},
     @nutritionalValue='${nutritionalValue}', 
     @isAvailable=${isAvailable}, 
     @dishCategoryId=${parseInt(category.id) || 0};`,
-  () => {
+  (result) => {
     res.status(200);
     res.send();
-  }, next);
+  },
+  () => {
+    res.sendStatus(400);
+  });
 }
 
 const deleteDish = (req, res, next) => {
   const dishId = req.params.id;
 
+  if (!Number.isInteger(+dishId) || (+dishId < 0)) {
+    res.sendStatus(400);
+    return;
+  }
+
   pool.executeQuery(`exec deleteDish @dishId=${dishId}`, 
-  () => {
-    res.status(200);
-    res.send();
-  }, next);
-}
-
-const assignCookToDish = (req, res, next) => {
-  const {
-    cookId,
-    dishId,
-    orderId
-  } = req.body;
-
-  pool.executeQuery(`exec assignCookToDish
-    @employeeId=${cookId},
-    @dishId=${dishId}
-    @orderId=${orderId};`,
   (result) => {
     res.status(200);
-    res.send(result);
+    res.send();
   }, next);
 }
 
@@ -112,6 +152,5 @@ module.exports = {
   createDish,
   updateDish,
   deleteDish,
-  assignCookToDish,
   getDish
 }

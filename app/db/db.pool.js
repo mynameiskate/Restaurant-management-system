@@ -14,7 +14,6 @@ class DbPool {
     this.poolPromise.then((pool) => {
         pool.request().query(query, (err, result) => {
           if (err) {
-            console.log(err);
             if (errorCallback) {
               errorCallback(err);
             }
