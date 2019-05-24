@@ -1,4 +1,10 @@
-<app-header></app-header>
+<app-header #test></app-header>
+
+<div class="getDocButtons">
+  <button (click)=getPdfDocument()>PDF</button>
+  <button (click)=getCsvDocument()>CSV</button>
+  <!-- <button (click)=getExelDocument()>EXEL</button> -->
+</div>
 
 <div class="dish-list">
   <div *ngFor="let dish of dishes" [ngClass]="{'opacity': !dish.isAvailable}" class="dish" (click)="chooseDish(dish)">

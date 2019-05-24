@@ -114,3 +114,28 @@ section {
 .opacity {
   opacity: .5;
 }
+
+.getDocButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  button {
+    margin: 15px;
+    width: 250px;
+    border: 1px solid @dark-color;
+    background: @light-color;
+    color: @dark-color;
+    font-size: 30px;
+    line-height: 1em;
+    padding: 0.5em;
+    -webkit-transition: all 0.25s;
+    transition: all 0.25s;
+  
+    &:hover {
+      background: rgba(255,255,255,0.1);
+      color: @light-color;
+    }
+  }
+}
+
